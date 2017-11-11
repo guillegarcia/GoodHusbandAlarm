@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -56,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
-    public void showAnniversaryDate(Calendar calendar) {
-        String anniversaryText = calendar.get(Calendar.DAY_OF_MONTH)+" / "+calendar.get(Calendar.MONTH);
+    public void showAnniversaryDate(int day, int month) {
+        //TODO: show date in a best way (month's name or something)
+        String anniversaryText = day+" / "+month;
 
         anniversaryTextView.setText(anniversaryText);
     }
@@ -77,14 +77,16 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            final Calendar calendarNow = Calendar.getInstance();
+            int year = calendarNow.get(Calendar.YEAR);
+            int month = calendarNow.get(Calendar.MONTH);
+            int day = calendarNow.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
+            // Create a new instance of DatePickerDialog and
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),android.R.style.Theme_Holo_Dialog, this, year,month, day);
+            // Hide the year (The app only need to know the day and the month)
             datePickerDialog.getDatePicker().findViewById(getResources().getIdentifier("year","id","android")).setVisibility(View.GONE);
+            // return it
             return datePickerDialog;
 
             //return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -92,12 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             Log.d(LOG_TAG,"onDateSet");
-            // Do something with the date chosen by the user
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, day);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.YEAR, year);
-            presenter.saveAlarmChanges(context,calendar);
+            presenter.saveAlarmChanges(context,day,month);
         }
     }
 }

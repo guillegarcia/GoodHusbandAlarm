@@ -5,17 +5,15 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.Calendar;
-
 import programadorandroid.com.goodhusbandalarm.interactors.ScheduleAlarm;
 
 /**
  * Created by Guillermo on 05/11/2017.
  */
-
 class MainPresenter {
     private final static String LOG_TAG = "MainPresenter";
-    private final static String PREFERENCE_ANNIVERSARY = "anni";
+    private final static String PREFERENCE_ANNIVERSARY_DAY = "d";
+    private final static String PREFERENCE_ANNIVERSARY_MONTH = "m";
 
     private View view;
 
@@ -23,21 +21,22 @@ class MainPresenter {
         this.view = view;
     }
 
-    void saveAlarmChanges(AppCompatActivity context, Calendar calendar){
+    void saveAlarmChanges(AppCompatActivity context, int day, int month){
         Log.d(LOG_TAG,"saveAlarmChanges");
 
         //Schedule alarm
         ScheduleAlarm scheduleAlarm = new ScheduleAlarm();
-        scheduleAlarm.execute(context,calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.YEAR));
+        scheduleAlarm.execute(context,day,month);
 
         //Save the new date
         SharedPreferences sharedPref = context.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(PREFERENCE_ANNIVERSARY, calendar.getTimeInMillis());
+        editor.putInt(PREFERENCE_ANNIVERSARY_DAY, day);
+        editor.putInt(PREFERENCE_ANNIVERSARY_MONTH, month);
         editor.commit();
 
         //Show the new date
-        view.showAnniversaryDate(calendar);
+        view.showAnniversaryDate(day,month);
 
         //Show message to user
         view.showMessage(R.string.changesSaved);
@@ -47,18 +46,16 @@ class MainPresenter {
 
         //GetAnniversary
         SharedPreferences sharedPref = context.getPreferences(Context.MODE_PRIVATE);
-        long anniversaryTime = sharedPref.getLong(PREFERENCE_ANNIVERSARY, 0);
+        int anniversaryDay = sharedPref.getInt(PREFERENCE_ANNIVERSARY_DAY, 0);
+        int anniversaryMonth = sharedPref.getInt(PREFERENCE_ANNIVERSARY_MONTH, 0);
 
-        if(anniversaryTime != 0){
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(anniversaryTime);
-
-            view.showAnniversaryDate(calendar);
+        if(anniversaryDay != 0 && anniversaryMonth != 0){
+            view.showAnniversaryDate(anniversaryDay,anniversaryMonth);
         }
     }
 
     interface View{
         void showMessage(int stringResourceId);
-        void showAnniversaryDate(Calendar calendar);
+        void showAnniversaryDate(int day, int month);
     }
 }

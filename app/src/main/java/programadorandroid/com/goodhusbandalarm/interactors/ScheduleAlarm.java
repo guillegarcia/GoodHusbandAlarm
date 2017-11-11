@@ -15,19 +15,19 @@ public class ScheduleAlarm {
     private final static String LOG_TAG = "ScheduleAlarm";
     private static final int ALARM_REQUEST_CODE = 1;
 
-    public void execute(Context context, int dayOfMonth, int month){
+    public void execute(Context context, int day, int month){
         Log.d(LOG_TAG,"execute");
 
         //Next alarm for next event
         Calendar nextEvent = Calendar.getInstance();
-        nextEvent.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        nextEvent.set(Calendar.DAY_OF_MONTH,day);
         nextEvent.set(Calendar.MONTH,month);
 
         Calendar currentTimeCalendar = Calendar.getInstance();
         int currentYear = currentTimeCalendar.get(Calendar.YEAR);
         Log.d(LOG_TAG,"currentYear = "+currentYear);
 
-        if(currentTimeCalendar.MONTH > dayOfMonth){
+        if(currentTimeCalendar.MONTH > day){
             nextEvent.set(Calendar.YEAR,currentYear+1);
         } else {
             nextEvent.set(Calendar.YEAR,currentYear);
