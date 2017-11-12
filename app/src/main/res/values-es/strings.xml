@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Good Husband Alarm</string>
+    <string name="action_settings">Settings</string>
+    <string name="changesSaved">¡Guardado!</string>
+    <string name="annyversaryNotificationTitle">¡Es vuestro aniversario!</string>
+    <string name="annyversaryNotificationText">¡Felicita a tu mujer ya!, ¡corre!</string>
+    <string name="yourAnniversary">Tu aniversario de bodas</string>
+    <string name="emptyAnniversary">Aún no has indicado cuál es tu aniversario</string>
+    <string name="stateToday">¡Hoy es tu aniversario!</string>
+    <string name="stateAWeekLeft">Queda menos de una semana. ¿Tienes ya preparado tu regalo?</string>
+    <string name="stateNormal">Todavía queda mucho, puedes estar tranquilo...</string>
+</resources>

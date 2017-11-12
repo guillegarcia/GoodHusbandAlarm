@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import programadorandroid.com.goodhusbandalarm.broadcastReceiver.AlarmReceiver;
 
@@ -18,26 +17,35 @@ public class ScheduleAlarm {
     public void execute(Context context, int day, int month){
         Log.d(LOG_TAG,"execute");
 
-        //Next alarm for next event
-        Calendar nextEvent = Calendar.getInstance();
-        nextEvent.set(Calendar.DAY_OF_MONTH,day);
-        nextEvent.set(Calendar.MONTH,month);
+        GetAlarmDate getAlarmDate = new GetAlarmDate();
+        Calendar nextEventCalendar = getAlarmDate.execute(day,month);
 
-        Calendar currentTimeCalendar = Calendar.getInstance();
-        int currentYear = currentTimeCalendar.get(Calendar.YEAR);
-        Log.d(LOG_TAG,"currentYear = "+currentYear);
+//        //Next alarm for next event
+//        Calendar nextEventCalendar = Calendar.getInstance();
+//        nextEventCalendar.set(Calendar.DAY_OF_MONTH,day);
+//        nextEventCalendar.set(Calendar.MONTH,month);
+//
+//        //Year depending on current date
+//        Calendar currentTimeCalendar = Calendar.getInstance();
+//        int currentYear = currentTimeCalendar.get(Calendar.YEAR);
+//        Log.d(LOG_TAG,"currentYear = "+currentYear);
+//
+//        if(currentTimeCalendar.get(Calendar.MONTH) > day){
+//            nextEventCalendar.set(Calendar.YEAR,currentYear+1);
+//        } else {
+//            nextEventCalendar.set(Calendar.YEAR,currentYear);
+//        }
+//
+//        //At midnight
+//        nextEventCalendar.set(Calendar.HOUR, 0);
+//        nextEventCalendar.set(Calendar.MINUTE, 0);
+        //Log.d(LOG_TAG,"nextEventCalendar year: "+ nextEventCalendar.get(Calendar.YEAR));
 
-        if(currentTimeCalendar.MONTH > day){
-            nextEvent.set(Calendar.YEAR,currentYear+1);
-        } else {
-            nextEvent.set(Calendar.YEAR,currentYear);
-        }
-        Log.d(LOG_TAG,"nextEvent year: "+ nextEvent.get(Calendar.YEAR));
-
+        //Schedule the alarm
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent  = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, nextEvent.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, nextEventCalendar.getTimeInMillis(), pendingIntent);
     }
 }

@@ -5,4 +5,8 @@
     <string name="annyversaryNotificationTitle">It\'s the day!</string>
     <string name="annyversaryNotificationText">Tell \"happy annyversary\" to your wife now!</string>
     <string name="yourAnniversary">Your wedding anniversary</string>
+    <string name="emptyAnniversary">You haven\'t entered your anniversary date yet</string>
+    <string name="stateToday">Today is the day!</string>
+    <string name="stateAWeekLeft">Only one week left</string>
+    <string name="stateNormal">There is still a lot of time...</string>
 </resources>

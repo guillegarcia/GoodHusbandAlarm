@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:id="@+id/selected"
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/goodhusband" android:duration="3000" />
+    <item android:drawable="@drawable/goodhusband_blinking" android:duration="500" />
+    <item android:drawable="@drawable/goodhusband" android:duration="3000" />
+    <item android:drawable="@drawable/goodhusband_blinking" android:duration="300" />
+    <item android:drawable="@drawable/goodhusband_worried" android:duration="500" />
+</animation-list>
