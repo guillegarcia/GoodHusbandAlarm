@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     private void husbandImageAnimation(){
 
-        if(!husbandImageAnimationStarted) {
+        if(!husbandImageAnimationStarted) { //TODO: This logic may be in the present
             // Load the ImageView that will host the animation and
             // set its background to our AnimationDrawable XML resource.
-            ImageView img = (ImageView) findViewById(R.id.imageView);
+            ImageView img = findViewById(R.id.imageView);
             img.setBackgroundResource(R.drawable.blink_animation);
 
             // Get the background, which has been compiled to an AnimationDrawable object.

@@ -29,18 +29,6 @@ public class AlarmReceiver extends BroadcastReceiver{
                 .setContentText(context.getString(R.string.annyversaryNotificationText))
                 .setAutoCancel(true);
 
-        // Creates an explicit intent for an Activity in your app
-        //Intent resultIntent = new Intent(this, MainActivity.class);
-        //TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//        stackBuilder.addParentStack(MainActivity.class);
-//        stackBuilder.addNextIntent(resultIntent);
-//        PendingIntent resultPendingIntent =
-//                stackBuilder.getPendingIntent(
-//                        0,
-//                        PendingIntent.FLAG_UPDATE_CURRENT
-//                );
-//        mBuilder.setContentIntent(resultPendingIntent);
-
         // Gets an instance of the NotificationManager service
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
